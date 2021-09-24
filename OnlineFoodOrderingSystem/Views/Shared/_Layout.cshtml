@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OnlineFoodOrderingSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand ml-5" asp-controller="Home" asp-action="Index"><span class=""><img width="70" height="70" src="https://img.freepik.com/free-vector/delivery-service-illustrated_23-2148505081.jpg?size=338&ext=jpg" /></span><br></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="oi oi-menu"></span> Menu
+                </button>
+                <div class="collapse navbar-collapse" id="ftco-nav">
+                    <ul class="navbar-nav">
+
+                        <li class="nav-item"><a class="nav-link text-dark" asp-controller="Categories" asp-action="Index" asp-route-id="1"> Fast Foods</a></li>
+                        <li class="nav-item"><a class="nav-link text-dark" asp-controller="Categories" asp-action="Index" asp-route-id="2">Restaurants</a></li>
+
+                    </ul>
+                    <div class="navbar-nav offset-1">
+                        <div class="input-group">
+                            <div class="">
+                                <input type="search" placeholder="Search.." id="form" class="form-control" />
+                            </div>
+                            <button type="button" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <ul class="navbar-nav ml-auto mr-4">
+                        <li class="nav-item"><a class="nav-link text-dark" asp-controller="Cart" asp-action="Index"><img id="image" width="25" height="25" src="https://cdn-icons-png.flaticon.com/32/891/891462.png" /> Cart</a></li>
+
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - Express Delivery
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
