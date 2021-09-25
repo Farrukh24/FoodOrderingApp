@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OnlineFoodOrderingSystem.Data;
+using OnlineFoodOrderingSystem.Repositories;
+using OnlineFoodOrderingSystem.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +33,10 @@ namespace OnlineFoodOrderingSystem
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddScoped<IFoodPlaceRepository, FoodPlaceRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

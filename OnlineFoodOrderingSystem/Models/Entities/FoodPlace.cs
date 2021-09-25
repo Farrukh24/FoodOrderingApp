@@ -10,11 +10,14 @@ namespace OnlineFoodOrderingSystem.Models.Entities
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
+
         [Required]
         [MaxLength(128)]
         public string SmallDescription { get; set; }
+        public string FoodNationality { get; set; }
         public string FoodPictureUrlPath { get; set; }
         public string BrandPictureUrlPath { get; set; }
         public int CategoryId { get; set; }
