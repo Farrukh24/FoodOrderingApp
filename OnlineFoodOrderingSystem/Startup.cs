@@ -38,6 +38,10 @@ namespace OnlineFoodOrderingSystem
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
+            services.AddSession(op =>
+                op.IdleTimeout = TimeSpan.FromMinutes(10)
+            );
+
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
@@ -61,6 +65,8 @@ namespace OnlineFoodOrderingSystem
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();

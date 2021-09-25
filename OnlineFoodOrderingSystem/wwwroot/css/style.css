@@ -1,0 +1,19 @@
+﻿#form {
+    width: 60vh;
+}
+
+.nav-item {
+    font-size: 1.3rem;
+}
+
+#buttons {
+    border-radius: 16px;
+    background-color: lightblue;
+    border-color: azure;
+    font-weight: bold;
+    transition-duration: 0.4s;
+}
+
+    #buttons:hover {
+        background-color: #0366d6;
+    }

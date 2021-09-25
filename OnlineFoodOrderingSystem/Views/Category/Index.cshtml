@@ -10,7 +10,7 @@
 <div class="container" id="container">
     @foreach (var item in Model)
     {
-        <a asp-controller="Categories" asp-action="Products" asp-route-id="@item.Id" class="nav-link">
+        <a asp-controller="Category" asp-action="Products" asp-route-id="@item.Id" class="nav-link">
             <div class="card" style="width: 18rem;">
                 <span hidden id="productId">@item.Id</span>
                 <img src="@item.FoodPictureUrlPath" class="card-img-top" alt="...">
