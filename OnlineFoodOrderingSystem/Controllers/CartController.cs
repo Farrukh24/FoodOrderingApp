@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Contracts;
+using Entities.Models.Cart;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineFoodOrderingSystem.Helpers;
 using OnlineFoodOrderingSystem.Models;
-using OnlineFoodOrderingSystem.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
