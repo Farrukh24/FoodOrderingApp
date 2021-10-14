@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Entities.Models.Entities.Order>
+
+@{
+    ViewData["Title"] = "MyOrders";
+}
+
+<h1 class="text-black-50 text-center">My Orders</h1>
+
+<div class="container p-3">
+    <br />
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Full Name
+                    </th>
+                    <th>
+                        Ordered Time
+                    </th>
+                    <th>
+                        Deliver Type
+                    </th>
+                    <th>
+                        Payment Type
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th class="text-center">
+                        ...
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.FirstName @item.LastName</td>
+                        <td>@item.CreatedOn</td>
+                        <td class="text-center">@item.DeliverType</td>
+                        <td class="text-center">@item.PaymentType</td>
+                        <td>@item.Adress</td>
+                        <td class="text-capitalize">@item.Status</td>
+                        <td>@item.Total $</td>
+                        <td>
+                            <div class="w-100 btn-group" role="group">
+                                <a asp-controller="Order" asp-action="Details" asp-route-Id="@item.Id" class="btn btn-success mx-1 "> Details </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h2 class="text-black-50 text-center">No Orders created yet</h2>
+    }
+</div>
+
+

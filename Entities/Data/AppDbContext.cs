@@ -3,7 +3,6 @@ using Entities.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Service.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

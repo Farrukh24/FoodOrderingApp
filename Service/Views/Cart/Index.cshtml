@@ -59,6 +59,8 @@
         </table>
 
         <h5 class="offset-8">Total: @Model.Sum(x => x.Quantity * x.Price) &#36</h5>
+
+        <a asp-controller="Cart" asp-action="Checkout" class="btn btn-success text-white">Checkout</a>
     }
     else
     {

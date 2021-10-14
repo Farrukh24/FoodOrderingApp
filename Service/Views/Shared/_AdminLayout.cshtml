@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" />
+    <link href="~/css/admin.css" rel="stylesheet" />       
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <a asp-controller="Home" asp-action="Index"><img style="border-radius:16px; margin-left: 10px; margin-top: 10px;" width="60" height="60" src="https://img.freepik.com/free-vector/delivery-service-illustrated_23-2148505081.jpg?size=338&ext=jpg" /></a>
+
+            <span class="logo_name" style="margin-left: 20px;">Express Delivery</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a asp-controller="Admin" asp-action="Index" class="">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Admin" asp-action="Products">
+                    <i class='bx bx-box'></i>
+                    <span class="links_name">Products</span>
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Admin" asp-action="FoodPlaces">
+                    <i class='bx bx-coin-stack'></i>
+                    <span class="links_name">Food Places</span>
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Admin" asp-action="OrderList">
+                    <i class='bx bx-list-ul'></i>
+                    <span class="links_name">Order list</span>
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Admin" asp-action="Users">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Users</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-message'></i>
+                    <span class="links_name">Messages</span>
+                </a>
+            </li>
+            <li class="log_out">
+                <a asp-controller="Home" asp-action="Index">
+                    <i class='bx bx-log-out'></i>
+                    <span class="links_name">Exit</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <section class="home-section">
+            <nav>
+                <div class="sidebar-button">
+                    <i class='bx bx-menu sidebarBtn'></i>
+                    <span class="dashboard">Dashboard</span>
+                </div>
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                    <i class='bx bx-search'></i>
+                </div>
+                <div class="profile-details">
+                    <img src="https://image.flaticon.com/icons/png/64/448/448505.png" alt="">
+                    <span class="admin_name">Farrukh Kholmatov</span>
+                    <i class='bx bx-chevron-down'></i>
+                </div>
+            </nav>
+        </section>
+
+            @RenderBody()
+    </div>
+
+    <script>
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function () {
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+                sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+            } else
+                sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

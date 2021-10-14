@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Entities.Data
+
+@model Entities.Models.Entities.OrderDetail
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+@inject UserManager<User> UserManager
+
+<h1 class="p-3 text-black-50 text-center">Details</h1>
+
+<div class="container p-3 w-75">
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th class="col-1">
+                    №
+                </th>
+                <th>
+                    Product Name
+                </th>
+                <th class="col-2">
+                    Quantity
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Total
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{var num = 0;}
+            @foreach (var item in Model.OrderedItems)
+            {
+                var total = item.Quantity * item.Price;
+                num++;
+                <tr>
+                    <td>@num</td>
+                    <td>@item.Name</td>
+                    <td class="text-center">@item.Quantity</td>
+                    <td>@item.Price $</td>
+                    <td>@total $</td>
+                </tr>
+
+            }
+
+        </tbody>
+    </table>
+    <div class="col offset-9">
+        <a asp-action="MyOrders" asp-route-id="@UserManager.GetUserId(User)" class="btn btn-danger">Go Back</a>
+    </div>
+</div>

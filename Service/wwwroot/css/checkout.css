@@ -1,0 +1,13 @@
+﻿#inputData {
+    width: 40vh;
+    border-radius: 16px;    
+    font-size: 35px;
+}
+
+#selectPayment {
+    width: 66vh;
+    font-size: 25px;
+    border-radius: 10px;
+    text-align-last: center;
+    color: darkblue;    
+}

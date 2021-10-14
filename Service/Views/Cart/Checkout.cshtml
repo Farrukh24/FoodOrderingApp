@@ -1,0 +1,133 @@
+﻿@model Entities.ViewModels.CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h2 class="text-black-50" style="margin-left:230px; font-size:50px;">Customer's Information</h2>
+
+<br />
+<br />
+
+<div class=" row " style="width:100rem; ">
+
+    @{
+        string[] paymentTypes = { "Cash", "Plastic Card", "Online Payment" };
+        string[] DeliverTypes = { "Pick Up", "Deliver" };
+    }
+
+    <form class="col-7 p-4" style="margin-left: -120px;" method="post">
+
+        <div class="container">
+
+            <input hidden asp-for="@Model.User.Id" />
+            <div class="form-group row">
+                <div class="col-7">
+                    <input asp-for="@Model.User.FirstName" class="form-control" placeholder="First Name" />
+                </div>
+            </div>
+            <div class="form-group row ">
+                <div class="col-7">
+                    <input asp-for="@Model.User.LastName" class="form-control" placeholder="Last Name" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-7">
+                    <input asp-for="@Model.User.PhoneNumber" class="form-control" placeholder="Customer Phone" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-7">
+                    <input asp-for="@Model.User.Address" class="form-control" placeholder="Customer Adress" />
+                </div>
+            </div>
+            <div class="">
+                <div class="">
+                    <label style="font-size:30px;">Service</label>
+                    <select class="col-5 ml-4" asp-for="@Model.DeliverType" placeholder="Deliver" id="selectPayment" autocomplete="on">
+                        @for (int i = 0; i < DeliverTypes.Length; i++)
+                        {
+                            <option value="@DeliverTypes[i]">@DeliverTypes[i]</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="">
+                <div class="">
+                    <label style="font-size:30px;">Payment</label>
+                    <select class="col-5" asp-for="@Model.PaymentType" placeholder="Payment" id="selectPayment" autocomplete="on">
+                        @for (int i = 0; i < paymentTypes.Length; i++)
+                        {
+                            <option value="@paymentTypes[i]">@paymentTypes[i]</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="form-group row">
+                <div class="col-3 offset-4">
+                    <button type="submit" value="Order" class="btn btn-success form-control">Order</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="col-7" style="margin-left: -370px;">
+        <br />
+        @if (Model.CartItems.Count() > 0)
+        {
+            <table class="table table-bordered table-striped ">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Total
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CartItems)
+                    {
+                        <tr class="text-capitalize">
+                            <td class="col-2">@item.Name</td>
+                            <td class="col-4">@item.Description</td>
+                            <td class="text-md-center col-1">@item.Price &#36</td>
+                            <td class="text-md-center col-1">@item.Quantity</td>
+                            <td class="text-md-center col-1">@item.Total &#36</td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+
+            <h5 class="offset-10">Total: @Model.CartItems.Sum(x => x.Quantity * x.Price) &#36</h5>
+        }
+
+        else
+        {
+            <h2 class="text-black-50 text-center">No items created yet</h2>
+        }
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</div>
+
+
+<link href="~/css/checkout.css" rel="stylesheet" />
+
+
+

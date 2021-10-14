@@ -1,3 +1,4 @@
+using Contracts;
 using Entities.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Service.Data;
+using Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace Service
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
+
            
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
@@ -39,6 +41,8 @@ namespace Service
                 .AddDefaultTokenProviders();            
 
             services.AddControllersWithViews();
+
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
 
             services.AddRazorPages();
             services.AddSession(option =>

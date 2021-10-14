@@ -1,5 +1,5 @@
-﻿using Entities.Models.Cart;
-using Service.Data;
+﻿using Entities.Data;
+using Entities.Models.Cart;
 using System;
 using System.Collections.Generic;
 using System.Linq;

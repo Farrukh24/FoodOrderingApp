@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace Contracts
 {
-    public interface ICategoryRepository
+    public interface IOrderDetailRepository: IRepositoryBase<OrderDetail>
     {
-        Task<IEnumerable<Category>> GetAllCAsync();
-        Task<Category> GetCategoryByIdAsync(int id);
     }
 }

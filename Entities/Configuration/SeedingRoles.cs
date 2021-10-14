@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Service.Data;
+﻿using Entities.Data;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Entities.Models.Entities.OrderedItems>
+
+@{
+    ViewData["Title"] = "Number";
+}
+
+@if (Model.Count() > 0)
+{
+    <div class="container" style=" border-radius:16px; width: 50rem; height: auto; box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;">
+        <div class="text">
+            <h3 class="text-center text-black-50">Your Order Number</h3>
+            <h1 class="text-center" style="font-size:120px;">@Model.FirstOrDefault().OrderDetailId</h1>
+        </div>
+        <h5 class="text-truncate p-2">Thanks for your order!</h5>
+        <h5 class="text-truncate p-2">We are happy that you used our service!</h5>
+        <hr />
+        @foreach (var item in Model)
+        {
+            <h6 class="text-black-50 ml-4">@item.Quantity x @item.Name - <span style="color:darkorange;" class="">@item.Price$</span></h6>
+            <br />
+        }
+
+        <hr />
+        <h6 style="position:absolute; left:67%;" class="text-black-50">Total : @Model.Sum(i => i.Quantity * i.Price)$</h6>
+        <br />
+        <h6 style="position:absolute; left:64%;" class="text-black-50">Service Price : 5.99$</h6>
+        <br />
+        @{ var num = @Model.Sum(i => i.Quantity * i.Price) + 5.99M;}
+        <h5 class="m-2">Overall: @num$</h5>
+        <br />
+    </div>
+
+}
+else
+{
+    <h1>No Order Created with this Id</h1>
+}
