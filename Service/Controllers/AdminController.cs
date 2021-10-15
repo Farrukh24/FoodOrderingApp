@@ -86,7 +86,7 @@ namespace Service.Controllers
         }
 
         // GET: Update Product
-        public async Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
             try
             {
@@ -114,15 +114,20 @@ namespace Service.Controllers
         {
             try
             {
-                if (product is null)
+                if (ModelState.IsValid)
                 {
-                    return NotFound();
+                    if (product is null)
+                    {
+                        return NotFound();
+                    }
+
+                    _repo.Product.Update(product);
+                    await _repo.SaveAsync();
+
+                    return RedirectToAction("Products");
                 }
 
-                _repo.Product.Update(product);
-                await _repo.SaveAsync();
-
-                return RedirectToAction("Products");
+                return View(product);
             }
             catch (Exception ex)
             {
@@ -130,22 +135,22 @@ namespace Service.Controllers
             }
         }                
 
-        // POST: Delete Product
-        
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id)
+        // Delete Product                
+        public async Task<ActionResult> Delete(int? id)
         {
             try
-            {
-                if (id == 0)
+            {                
+                var deleteItem = await _repo.Product.FindByCondition(x => x.Id == id).FirstOrDefaultAsync();
+
+                if (deleteItem == null)
                 {
                     return NotFound();
                 }
-                var deleteItem = await _repo.Product.FindByCondition(x => x.Id == id).FirstOrDefaultAsync();
+
                 _repo.Product.Delete(deleteItem);
                 await _repo.SaveAsync();
 
-                return Ok();
+                return RedirectToAction("Products");
             }
             catch (Exception ex)
             {
@@ -195,7 +200,7 @@ namespace Service.Controllers
                 _repo.FoodPlace.Create(foodPlace);
                 await _repo.SaveAsync();
 
-                return RedirectToAction("Products");
+                return RedirectToAction("FoodPlaces");
             }
             catch (Exception ex)
             {
@@ -203,6 +208,28 @@ namespace Service.Controllers
             }
         }
 
+        // Delete Food Place
+        public async Task<ActionResult> DeleteFoodPlace(int? id)
+        {
+            try
+            {
+                var deleteItem = await _repo.FoodPlace.FindByCondition(x => x.Id == id).FirstOrDefaultAsync();
+
+                if (deleteItem == null)
+                {
+                    return NotFound();
+                }
+
+                _repo.FoodPlace.Delete(deleteItem);
+                await _repo.SaveAsync();
+
+                return RedirectToAction("FoodPlaces");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Problem is: {ex}");
+            }
+        }
 
         // Users
         public async Task<IActionResult> Users()

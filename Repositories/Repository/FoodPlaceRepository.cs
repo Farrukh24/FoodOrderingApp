@@ -15,6 +15,10 @@ namespace Repositories
         public FoodPlaceRepository(AppDbContext dbContext) : base(dbContext)
         {
 
-        }        
+        }
+
+        public async Task<IEnumerable<FoodPlace>> Search(string data) =>
+                await FindByCondition(x => x.Name.Contains(data) || x.Products.Any(a => a.Name.Contains(data))).ToListAsync();
+        
     }
 }

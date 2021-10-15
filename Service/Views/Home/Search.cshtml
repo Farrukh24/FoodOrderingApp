@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Entities.Models.Entities.FoodPlace>
+
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container p-3">
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Food Place Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th class="text-center">
+                        Food Picture
+                    </th>
+                    <th class="text-center">
+                        Brand Picture
+                    </th>
+                    <th class="text-md-center">
+                        ...
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.SmallDescription</td>
+                        <td class="text-center"><img style="width:64px; height:44px;" src="@item.FoodPictureUrlPath" /></td>
+                        <td class="text-center"><img style="width:64px; height:44px;" src="@item.BrandPictureUrlPath" /></td>
+                        <td>
+                            <div class="w-100 btn-group" role="group">
+                                <a asp-controller="Category" asp-action="Products" asp-route-Id="@item.Id" class="btn btn-success mx-1 "> Products </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h2 class="text-black-50 text-center">No items With This Name</h2>
+    }
+</div>
+

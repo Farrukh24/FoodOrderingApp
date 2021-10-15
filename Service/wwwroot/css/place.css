@@ -16,10 +16,18 @@
     border-radius: 10px;
 }
 
+@media (min-width: 768px) {
+    #container {
+        max-width: 500rem;
+    }
+}
+
 #container {
     box-shadow: 0 1px 6px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.24);
     border-radius: 10px;
     display: inline-flex;    
+    margin-left:-45px;
+    width:111%;
 }
 #text {
     font-family:'Arial Rounded MT';

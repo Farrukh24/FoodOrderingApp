@@ -9,6 +9,6 @@ namespace Contracts
 {
     public interface IFoodPlaceRepository: IRepositoryBase<FoodPlace>
     {
-        
+        Task<IEnumerable<FoodPlace>> Search(string data);
     }
 }
