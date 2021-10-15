@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model Entities.Models.Entities.Product
+
+<form method="post" asp-action="InsertProduct">
+    <input asp-for="Id" hidden />
+    <div class="container p-5 offset-2">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Update The Product</h2>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="Description"></label>
+                    </div>
+                    <div class="col-2">
+                        <label asp-for="Price"></label>
+                    </div>
+                    <div class="col-2">
+                        <label asp-for="FoodPlaceId"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"> </span>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"> </span>
+                    </div>
+                    <div class="col-2">
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"> </span>
+                    </div>
+                    <div class="col-2">
+                        <input asp-for="FoodPlaceId" class="form-control" />
+                        <span asp-validation-for="FoodPlaceId" class="text-danger"> </span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 offset-2 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-75" value="Update" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Products" class="btn btn-danger w-75">Go Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

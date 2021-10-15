@@ -1,0 +1,56 @@
+﻿@model Entities.Models.Entities.Order
+
+@{
+    ViewData["Title"] = "OrderDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="home-section">
+
+    <h1 class="p-3 text-black-50 text-center">Details</h1>
+
+    <div class=" container p-3" style="width: 100%;">
+        <table class="table table-bordered table-striped" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>
+                        Full Name
+                    </th>
+                    <th>
+                        Order Created Time
+                    </th>
+                    <th>
+                        Payment
+                    </th>
+                    <th>
+                        Number
+                    </th>
+                    <th>
+                        Customer Email
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.FirstName @Model.LastName</td>
+                    <td>@Model.CreatedOn</td>
+                    <td>@Model.PaymentType</td>
+                    <td>@Model.PhoneNumber</td>
+                    <td>@Model.Email</td>
+                    <td>@Model.Adress</td>
+                    <td>@Model.Total $</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="col offset-9">
+            <a asp-action="OrderList" class="btn btn-danger">Go Back</a>
+        </div>
+    </div>
+</div>
+

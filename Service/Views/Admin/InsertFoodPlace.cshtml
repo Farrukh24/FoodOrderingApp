@@ -1,0 +1,60 @@
+﻿@model Entities.Models.Entities.FoodPlace
+
+@{
+    ViewData["Title"] = "InsertFoodPlace";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container offset-2" style="">
+    <form method="post" asp-action="InsertFoodPlace">
+        <div class="container p-5 ">
+            <div class="form-group">
+                <h2 class="text-primary" style="margin-left:265px;">Add New Food Place</h2>
+            </div>
+            <br />
+            <br />
+
+            <div class="container offset-2">
+                <div class="col-8">
+                    <div class="form-group ">
+                        <div class="col-6">
+                            <input placeholder="Name" asp-for="Name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-6">
+                            <input placeholder="Description" asp-for="SmallDescription" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-6">
+                            <input placeholder="Food Picture" asp-for="FoodPictureUrlPath" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-6">
+                            <input placeholder="Brand Picture" asp-for="BrandPictureUrlPath" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-6">
+                            <input placeholder="Category Id" asp-for="CategoryId" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-10 row ml-1">
+                            <div class="col-4">
+                                <input type="submit" class="btn btn-info w-75" value="Add" />
+                            </div>
+                            <div class="col-4">
+                                <a asp-action="FoodPlaces" class="btn btn-danger w-75">Go Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+

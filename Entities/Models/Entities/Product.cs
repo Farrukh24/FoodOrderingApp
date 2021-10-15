@@ -9,7 +9,8 @@ namespace Entities.Models.Entities
 {
     public class Product
     {
-        [Key]
+        [Key]        
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]

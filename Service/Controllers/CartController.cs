@@ -145,6 +145,7 @@ namespace OnlineFoodOrderingSystem.Controllers
         }
 
         // Checkout        
+        [Authorize]
         public async Task<IActionResult> Checkout()
         {
             try
@@ -162,7 +163,8 @@ namespace OnlineFoodOrderingSystem.Controllers
             }            
         }
         
-        [HttpPost]
+        [Authorize]
+        [HttpPost]        
         public async Task<IActionResult> Checkout(CheckoutViewModel checkoutVM)
         {
             try

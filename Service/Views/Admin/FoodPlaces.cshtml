@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Entities.Models.Entities.FoodPlace>
+
+@{
+    ViewData["Title"] = "FoodPlaces";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="home-section">
+    <h1 class="text-black-50 text-center">Welcome to Food_Places List</h1>
+
+    <div class="container p-3">
+        <div class="row pt-4">
+            <div class="p-2 col-6 offset-9">
+                <a asp-action="InsertFoodPlace" class="btn btn-primary">Add New FoodPlace</a>
+            </div>
+        </div>
+        <br />
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            Food Place Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Food Picture
+                        </th>
+                        <th>
+                            Brand Picture
+                        </th>
+                        <th class="text-md-center">
+                            Changes
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.SmallDescription</td>
+                            <td><img style="width:64px; height:64px;" src="@item.FoodPictureUrlPath" /></td>
+                            <td><img style="width:64px; height:64px;" src="@item.BrandPictureUrlPath" /></td>
+                            <td>
+                                <div class="w-100 btn-group" role="group">
+                                    <a asp-controller="Admin" asp-action="UpdateFoodPlace" asp-route-Id="@item.Id" class="btn btn-success mx-1 "> Update </a>
+                                    <a asp-controller="Admin" asp-action="DeleteFoodPlace" asp-route-Id="@item.Id" class="btn btn-danger mx-1 "> Delete </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h2 class="text-black-50 text-center">No items created yet</h2>
+        }
+    </div>
+</div>
+

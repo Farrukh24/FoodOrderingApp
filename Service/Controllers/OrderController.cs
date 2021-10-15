@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Service.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IRepositoryManager _repo;
@@ -16,8 +17,7 @@ namespace Service.Controllers
         {
             _repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
-
-        [Authorize]
+        
         [HttpGet]
         public async Task<IActionResult> Number([FromRoute] int id)
         {
@@ -37,7 +37,6 @@ namespace Service.Controllers
             }            
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> MyOrders([FromRoute] string id)
         {
@@ -57,7 +56,6 @@ namespace Service.Controllers
             }            
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Details([FromRoute] int id)
         {
@@ -68,7 +66,7 @@ namespace Service.Controllers
                     return BadRequest("Id cannot be equal to 0! ");
                 }
 
-                return View(await _repo.OrderDetail.FindByCondition(x => x.OrderId == id).FirstOrDefaultAsync());
+                return View(await _repo.OrderDetail.FindByCondition(x => x.OrderId == id).Include(i => i.OrderedItems).FirstOrDefaultAsync());
             }
             catch (Exception ex)
             {
