@@ -33,7 +33,8 @@ namespace Repositories
 
         public virtual void Update(T entity)
         {
-            dbContext.Set<T>().Update(entity);
+            dbContext.Set<T>().Attach(entity);
+            dbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public virtual IQueryable<T> FindAll() =>

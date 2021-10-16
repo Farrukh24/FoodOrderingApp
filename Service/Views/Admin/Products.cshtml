@@ -6,7 +6,9 @@
 }
 
 <div class="home-section">
-    <h1 class="text-black-50 text-center">Welcome to BookList</h1>
+    <br />
+    <br />
+    <br />
 
     <div class="container p-3">
         <div class="row pt-4">
@@ -43,7 +45,7 @@
                             <td>@item.Price $</td>
                             <td>
                                 <div class="w-100 btn-group" role="group">
-                                    <a asp-controller="Admin" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-success mx-1 "> Update </a>
+                                    <a asp-controller="Admin" asp-action="ProductEdit" asp-route-Id="@item.Id" class="btn btn-success mx-1 "> Update </a>
                                     <a asp-controller="Admin" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-1 "> Delete </a>
                                 </div>
                             </td>

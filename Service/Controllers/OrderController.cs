@@ -20,7 +20,7 @@ namespace Service.Controllers
         
         [HttpGet]
         public async Task<IActionResult> Number([FromRoute] int id)
-        {
+        {            
             try
             {
                 if (id == 0)
@@ -66,7 +66,7 @@ namespace Service.Controllers
                     return BadRequest("Id cannot be equal to 0! ");
                 }
 
-                return View(await _repo.OrderDetail.FindByCondition(x => x.OrderId == id).Include(i => i.OrderedItems).FirstOrDefaultAsync());
+                return View(await _repo.OrderDetail.FindByCondition(x => x.OrderId == id).Include(i => i.OrderedItems).Include(i => i.Order).FirstOrDefaultAsync());
             }
             catch (Exception ex)
             {

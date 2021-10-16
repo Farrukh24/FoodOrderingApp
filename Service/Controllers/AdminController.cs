@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities.Data;
 using Entities.Models.Entities;
+using Entities.Models.Enum;
 using Entities.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -56,7 +57,7 @@ namespace Service.Controllers
         }
 
         // GET: Inserting product page
-        [HttpGet]        
+        [HttpGet]
         public ActionResult InsertProduct()
         {
             return View();
@@ -69,7 +70,7 @@ namespace Service.Controllers
         {
             try
             {
-                if(product is null)
+                if (product is null)
                 {
                     return NoContent();
                 }
@@ -86,7 +87,7 @@ namespace Service.Controllers
         }
 
         // GET: Update Product
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> ProductEdit(int? id)
         {
             try
             {
@@ -110,7 +111,7 @@ namespace Service.Controllers
         // POST: Update Product
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Product product)
+        public async Task<ActionResult> ProductEdit(Product product, [FromRoute]int id)
         {
             try
             {
@@ -187,7 +188,7 @@ namespace Service.Controllers
 
         // POST: Insert product
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public async Task<ActionResult> InsertFoodPlace(FoodPlace foodPlace)
         {
             try
@@ -201,6 +202,56 @@ namespace Service.Controllers
                 await _repo.SaveAsync();
 
                 return RedirectToAction("FoodPlaces");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Problem is: {ex}");
+            }
+        }
+
+        // GET: Edit FoodPlace
+        public async Task<IActionResult> FoodPlaceEdit(int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    return NotFound("ID cannot be null!");
+                }
+                var foodPlace = await _repo.FoodPlace.FindByCondition(x => x.Id == id).FirstOrDefaultAsync();
+                if (foodPlace is null)
+                {
+                    return BadRequest("Problem is found while attempting to get data from DB");
+                }
+                return View(foodPlace);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Problem is: {ex}");
+            }
+        }
+
+        // POST: Edit FoodPlace
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> FoodPlaceEdit(FoodPlace foodPlace)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (foodPlace is null)
+                    {
+                        return NotFound();
+                    }
+
+                    _repo.FoodPlace.Update(foodPlace);
+                    await _repo.SaveAsync();
+
+                    return RedirectToAction("FoodPlaces");
+                }
+
+                return View(foodPlace);
             }
             catch (Exception ex)
             {
@@ -331,13 +382,43 @@ namespace Service.Controllers
         }
 
         // OrderList
-        public async Task<IActionResult> OrderList() =>      
+        public async Task<IActionResult> OrderList() =>
             View(await _repo.Order.FindAll().ToListAsync());
-     
+
+        //GET: Manage Status
+        public async Task<IActionResult> ManageStatus([FromRoute]int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    return NotFound("ID cannot be Null!");
+                }
+
+                ViewBag.EnumValues = Enum.GetValues(typeof(Status));
+
+                return View(await _repo.Order.FindByCondition(x => x.Id == id).FirstOrDefaultAsync());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Problem is {ex}");
+            }            
+        }
+        
+        //POST: Manage Status
+        [HttpPost]
+        public async Task<IActionResult> ManageStatus(Order order)
+        {
+            _repo.Order.Update(order);
+
+            await _repo.SaveAsync();
+
+            return RedirectToAction("OrderList");
+        }
 
         // OrderList/Details
         public async Task<IActionResult> OrderDetails([FromRoute] int id) =>
-            View(await _repo.Order.FindByCondition(x => x.Id == id).FirstOrDefaultAsync());
+            View(await _repo.OrderDetail.FindByCondition(x => x.OrderId == id).Include(i => i.OrderedItems).FirstOrDefaultAsync());
         
     }
 }

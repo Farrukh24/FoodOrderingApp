@@ -1,0 +1,33 @@
+﻿@model Entities.Models.Entities.Order
+
+@{
+    ViewData["Title"] = "ManageStatus";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form method="post">
+    <div style="margin-left: 250px;" class="card w-75 p-5">
+        <div class="card-header" style="margin-top: 60px;">
+            <h2>Manage Status</h2>
+            Change Order Status
+        </div>
+        <div class="card-body">
+            <select class="custom-select mr-sm-2 w-50" id="status">
+                <option selected>@Model.Status</option>
+                @for (int i = 1; i < ViewBag.EnumValues.Length; i++)
+                {
+                    <option value="@Model.Status">@ViewBag.EnumValues[i]</option>
+                }
+            </select>            
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-footer">
+            <input type="submit" value="Update" class="btn btn-primary"
+                   style="width:auto" />
+            <a asp-action="OrderList"
+               class="btn btn-primary" style="width:auto">Cancel</a>
+        </div>
+    </div>
+</form>
+
+

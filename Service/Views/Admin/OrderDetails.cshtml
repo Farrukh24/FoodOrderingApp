@@ -1,4 +1,4 @@
-﻿@model Entities.Models.Entities.Order
+﻿@model Entities.Models.Entities.OrderDetail
 
 @{
     ViewData["Title"] = "OrderDetails";
@@ -9,27 +9,21 @@
 
     <h1 class="p-3 text-black-50 text-center">Details</h1>
 
-    <div class=" container p-3" style="width: 100%;">
-        <table class="table table-bordered table-striped" style="width:100%;">
+    <div class="container p-3 w-100">
+        <table class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>
-                        Full Name
+                    <th class="col-1">
+                        №
                     </th>
                     <th>
-                        Order Created Time
+                        Product Name
+                    </th>
+                    <th class="col-2">
+                        Quantity
                     </th>
                     <th>
-                        Payment
-                    </th>
-                    <th>
-                        Number
-                    </th>
-                    <th>
-                        Customer Email
-                    </th>
-                    <th>
-                        Address
+                        Price
                     </th>
                     <th>
                         Total
@@ -37,20 +31,27 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>@Model.FirstName @Model.LastName</td>
-                    <td>@Model.CreatedOn</td>
-                    <td>@Model.PaymentType</td>
-                    <td>@Model.PhoneNumber</td>
-                    <td>@Model.Email</td>
-                    <td>@Model.Adress</td>
-                    <td>@Model.Total $</td>
-                </tr>
+                @{var num = 0;}
+                @foreach (var item in Model.OrderedItems)
+                {
+                    var total = item.Quantity * item.Price;
+                    num++;
+                    <tr>
+                        <td>@num</td>
+                        <td>@item.Name</td>
+                        <td class="text-center">@item.Quantity</td>
+                        <td>@item.Price $</td>
+                        <td>@total $</td>
+                    </tr>
+
+                }
+
             </tbody>
         </table>
         <div class="col offset-9">
-            <a asp-action="OrderList" class="btn btn-danger">Go Back</a>
+            <a asp-controller="Admin" asp-action="OrderList" class="btn btn-danger">Go Back</a>
         </div>
     </div>
+
 </div>
 

@@ -1,0 +1,76 @@
+﻿@model Entities.Models.Entities.FoodPlace
+
+@{
+    ViewData["Title"] = "FoodPlaceEdit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form method="post" asp-action="FoodPlaceEdit">
+    <input asp-for="Id" hidden />
+    <div class="container p-5" style="margin-left: 14rem;">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Update The Product</h2>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-2">
+                        <label asp-for="SmallDescription"></label>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="FoodPictureUrlPath"></label>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="BrandPictureUrlPath"></label>
+                    </div>
+                    <div class="col-2">
+                        <label asp-for="CategoryId"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"> </span>
+                    </div>
+                    <div class="col-2">
+                        <input asp-for="SmallDescription" class="form-control" />
+                        <span asp-validation-for="SmallDescription" class="text-danger"> </span>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="FoodPictureUrlPath" class="form-control" />
+                        <span asp-validation-for="FoodPictureUrlPath" class="text-danger"> </span>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="BrandPictureUrlPath" class="form-control" />
+                        <span asp-validation-for="BrandPictureUrlPath" class="text-danger"> </span>
+                    </div>
+                    <div class="col-2">
+                        <input asp-for="CategoryId" class="form-control" />
+                        <span asp-validation-for="CategoryId" class="text-danger"> </span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-5 offset-2 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-75" value="Update" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="FoodPlaces" class="btn btn-danger w-75">Go Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+

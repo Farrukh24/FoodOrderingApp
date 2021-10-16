@@ -9,8 +9,8 @@ namespace Entities.Models.Entities
 {
     public class Product
     {
-        [Key]        
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -24,7 +24,7 @@ namespace Entities.Models.Entities
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
-        public int FoodPlaceId { get; set; }
+        public int FoodPlaceId { get; set; }    
         public FoodPlace Place { get; set; }
         public ICollection<Feedback> Feedbacks { get; set; }       
     }
