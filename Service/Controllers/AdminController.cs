@@ -42,13 +42,14 @@ namespace Service.Controllers
         {
             try
             {
-                var products = await _repo.Product.FindAll().ToListAsync();
-                if (products is null)
+                var foodPlaces = await _repo.FoodPlace.FindAll().ToListAsync();
+
+                if (foodPlaces is null)
                 {
                     return BadRequest("Problem found while getting products! Null cannot be a value!");
                 }
 
-                return View(products);
+                return View(foodPlaces);
             }
             catch (Exception ex)
             {
@@ -56,10 +57,33 @@ namespace Service.Controllers
             }
         }
 
+        // Product List Partial View
+        public async Task<IActionResult> ProductList([FromQuery] string name)
+        {
+            try
+            {
+                var foodPlaceId = await _repo.FoodPlace.FindByCondition(x => x.Name.Contains(name)).Select(i => i.Id).FirstOrDefaultAsync();
+
+                var products = await _repo.Product.FindByCondition(x => x.FoodPlaceId == foodPlaceId).ToListAsync();
+
+                if (products is null)
+                {
+                    return BadRequest("Problem found while getting products! Null cannot be a value!");
+                }
+                return PartialView("ProductList", products);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"Problem is: {ex}");
+            }
+
+        }
+
         // GET: Inserting product page
         [HttpGet]
         public ActionResult InsertProduct()
-        {
+        {     
             return View();
         }
 
@@ -74,6 +98,8 @@ namespace Service.Controllers
                 {
                     return NoContent();
                 }
+                product.FoodPlaceId = await _repo.FoodPlace.FindByCondition(x => x.Name.Contains(product.Place.Name)).Select(i => i.Id).FirstOrDefaultAsync();
+                product.Place = null;
 
                 _repo.Product.Create(product);
                 await _repo.SaveAsync();
@@ -111,7 +137,7 @@ namespace Service.Controllers
         // POST: Update Product
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ProductEdit(Product product, [FromRoute]int id)
+        public async Task<ActionResult> ProductEdit(Product product)
         {
             try
             {
@@ -134,13 +160,13 @@ namespace Service.Controllers
             {
                 throw new Exception($"Problem is: {ex}");
             }
-        }                
+        }
 
         // Delete Product                
         public async Task<ActionResult> Delete(int? id)
         {
             try
-            {                
+            {
                 var deleteItem = await _repo.Product.FindByCondition(x => x.Id == id).FirstOrDefaultAsync();
 
                 if (deleteItem == null)
@@ -188,7 +214,7 @@ namespace Service.Controllers
 
         // POST: Insert product
         [HttpPost]
-        
+
         public async Task<ActionResult> InsertFoodPlace(FoodPlace foodPlace)
         {
             try
@@ -304,7 +330,7 @@ namespace Service.Controllers
             catch (Exception ex)
             {
                 throw new Exception($"Problem is: {ex}");
-            }            
+            }
         }
         // Private helper method for USer
         private async Task<List<string>> GetUserRoles(User user)
@@ -348,7 +374,7 @@ namespace Service.Controllers
             catch (Exception ex)
             {
                 throw new Exception($"Problem is: {ex}");
-            }            
+            }
         }
         [HttpPost]
         public async Task<IActionResult> Manage(List<ManageUserRoleViewModel> model, string userId)
@@ -378,7 +404,7 @@ namespace Service.Controllers
             catch (Exception ex)
             {
                 throw new Exception($"Problem is: {ex}");
-            }            
+            }
         }
 
         // OrderList
@@ -386,7 +412,7 @@ namespace Service.Controllers
             View(await _repo.Order.FindAll().ToListAsync());
 
         //GET: Manage Status
-        public async Task<IActionResult> ManageStatus([FromRoute]int id)
+        public async Task<IActionResult> ManageStatus([FromRoute] int id)
         {
             try
             {
@@ -402,9 +428,9 @@ namespace Service.Controllers
             catch (Exception ex)
             {
                 throw new Exception($"Problem is {ex}");
-            }            
+            }
         }
-        
+
         //POST: Manage Status
         [HttpPost]
         public async Task<IActionResult> ManageStatus(Order order)
@@ -419,6 +445,6 @@ namespace Service.Controllers
         // OrderList/Details
         public async Task<IActionResult> OrderDetails([FromRoute] int id) =>
             View(await _repo.OrderDetail.FindByCondition(x => x.OrderId == id).Include(i => i.OrderedItems).FirstOrDefaultAsync());
-        
+
     }
 }

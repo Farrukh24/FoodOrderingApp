@@ -11,14 +11,34 @@
             <h2>Manage Status</h2>
             Change Order Status
         </div>
-        <div class="card-body">
-            <select class="custom-select mr-sm-2 w-50" id="status">
-                <option selected>@Model.Status</option>
-                @for (int i = 1; i < ViewBag.EnumValues.Length; i++)
+        <div class="card-body">            
+            <input hidden asp-for="@Model.FirstName" />
+            <input hidden asp-for="@Model.LastName" />
+            <input hidden asp-for="@Model.PaymentType" />
+            <input hidden asp-for="@Model.DeliverType" />
+            <input hidden asp-for="@Model.CreatedOn" />
+            <input hidden asp-for="@Model.Adress" />
+            <input hidden asp-for="@Model.Email" />
+            <input hidden asp-for="@Model.PhoneNumber" />
+            <input hidden asp-for="@Model.Total" />
+            <select class="custom-select mr-sm-2 w-50" id="status" asp-for="@Model.Status">
+                @for (int i = 0; i < ViewBag.EnumValues.Length; i++)
                 {
-                    <option value="@Model.Status">@ViewBag.EnumValues[i]</option>
+                    if (Model.DeliverType.Contains("Pick Up"))
+                    {
+                        while (i <= 2)
+                        {
+                            <option value="@ViewBag.EnumValues[i]">@ViewBag.EnumValues[i]</option>
+                            break;
+                        }
+                    }
+                    else
+                    {                       
+                        <option value="@ViewBag.EnumValues[i]">@ViewBag.EnumValues[i]</option>
+                    }
+
                 }
-            </select>            
+            </select>
             <div asp-validation-summary="All" class="text-danger"></div>
         </div>
         <div class="card-footer">
